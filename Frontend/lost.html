@@ -1,89 +1,167 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="th">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>แจ้งเรื่องของหาย</title>
-    <link rel="stylesheet" href="css/lost.css">
-    <link rel="stylesheet" href="css/pdpa.css">
-</head>
-<body>
+    <link rel="stylesheet" href="css/lost.css" />
+    <link rel="stylesheet" href="css/pdpa.css" />
+  </head>
+  <body>
     <div class="container">
-        <div class="section" id="reportSection">
-            <h1>📝 แบบฟอร์มแจ้งของหาย</h1>
-            <p class="intro">กรุณากรอกข้อมูลให้ครบถ้วนที่สุด<br>เพื่อให้เจ้าหน้าที่ติดตามของให้คุณได้ง่ายขึ้นนะคะ</p>
+      <div class="section" id="reportSection">
+        <h1>📝 แบบฟอร์มแจ้งของหาย</h1>
+        <p class="intro">
+          กรุณากรอกข้อมูลให้ครบถ้วนที่สุด<br />เพื่อให้เจ้าหน้าที่ติดตามของให้คุณได้ง่ายขึ้นนะคะ
+        </p>
 
-            <div class="form-group">
-                <label for="itemName">สิ่งของที่คุณทำหายคืออะไร ?</label>
-                <input type="text" id="itemName" name="itemName" placeholder="เช่น กระเป๋าสตางค์, โทรศัพท์, บัตรนักศึกษา" required>
-            </div>
-            <div class="form-group">
-                <label for="brand">ยี่ห้อ / หมายเลขบัตร (ถ้ามี)</label>
-                <input type="text" id="brand" name="brand" placeholder="เช่น Samsung, 1234-5678-xxxx">
-            </div>
-            <div class="form-group">
-                <label for="description">ลักษณะเด่น (สี, รุ่น, ตำหนิ)</label>
-                <textarea id="description" name="description" rows="4" placeholder="เช่น โทรศัพท์สีฟ้า มีรอยขีดด้านหลัง, บัตรมีพวงกุญแจตุ๊กตา" required></textarea>
-            </div>
-            <div class="form-group">
-                <label for="location">สถานที่ที่คาดว่าทำหาย</label>
-                <input type="text" id="location" name="location" placeholder="เช่น ห้องเรียน, โรงอาหาร, ลานจอดรถ, ชั้น 3 หอสมุดป๋วย" required>
-            </div>
-
-            <!-- ✅ แยกช่องวันที่และเวลา -->
-            <div class="form-group">
-                <label for="date">วันที่ที่คาดว่าทำหาย</label>
-                <input type="date" id="date" name="date" required>
-            </div>
-            <div class="form-group">
-                <label for="time">เวลาที่คาดว่าทำหาย</label>
-                <input type="time" id="time" name="time" required>
-            </div>
-
-            <!-- ✅ แนบรูปภาพ -->
-            <div class="form-group">
-                <label for="itemImage">แนบรูปภาพ (ถ้ามี)</label>
-                <input type="file" id="itemImage" name="itemImage" accept="image/jpeg,image/jpg,image/png,image/gif,image/webp">
-            </div>
-
-            <!-- ช่องทางติดต่อผู้แจ้ง -->
-            <div class="form-group">
-                <label for="reporterName">ชื่อผู้แจ้ง</label>
-                <input type="text" id="reporterName" placeholder="ชื่อ-สกุล" required>
-            </div>
-            <div class="form-group">
-                <label for="reporterPhone">เบอร์โทรผู้แจ้ง</label>
-                <input 
-                  type="tel" 
-                  id="reporterPhone" 
-                  placeholder="เช่น 0812345678" 
-                  inputmode="numeric"
-                  maxlength="10"
-                  pattern="[0-9]{10}"
-                  oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10);"
-                  required>
-            </div>
-            <div class="form-group">
-                <label for="reporterStudentId">เลขนักศึกษาผู้แจ้ง</label>
-                <input
-                  type="text"
-                  id="reporterStudentId"
-                  placeholder="เช่น 6612345678"
-                  inputmode="numeric"
-                  maxlength="10"
-                  pattern="[0-9]{10}"
-                  oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10);"
-                  required
-                >
-            </div>
-
-            <button id="reportBtn">ส่งข้อมูลแจ้งของหาย</button>
-            <p id="status"></p>
+        <div class="form-group">
+          <label for="itemName">สิ่งของที่คุณทำหายคืออะไร ?</label>
+          <input
+            type="text"
+            id="itemName"
+            name="itemName"
+            placeholder="เช่น กระเป๋าสตางค์, โทรศัพท์, บัตรนักศึกษา"
+            required
+          />
         </div>
+        <div class="form-group">
+          <label for="brand">ยี่ห้อ / หมายเลขบัตร (ถ้ามี)</label>
+          <input
+            type="text"
+            id="brand"
+            name="brand"
+            placeholder="เช่น Samsung, 1234-5678-xxxx"
+          />
+        </div>
+        <div class="form-group">
+          <label for="description">ลักษณะเด่น (สี, รุ่น, ตำหนิ)</label>
+          <textarea
+            id="description"
+            name="description"
+            rows="4"
+            placeholder="เช่น โทรศัพท์สีฟ้า มีรอยขีดด้านหลัง, บัตรมีพวงกุญแจตุ๊กตา"
+            required
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="location">สถานที่ที่คาดว่าทำหาย</label>
+          <input
+            type="text"
+            id="location"
+            name="location"
+            placeholder="เช่น ห้องเรียน, โรงอาหาร, ลานจอดรถ, ชั้น 3 หอสมุดป๋วย"
+            required
+          />
+        </div>
+
+        <!-- ✅ แยกช่องวันที่และเวลา -->
+        <div class="form-group">
+          <label for="date">วันที่ที่คาดว่าทำหาย</label>
+          <input type="date" id="date" name="date" required />
+        </div>
+        <div class="form-group">
+          <label for="time">เวลาที่คาดว่าทำหาย</label>
+          <input type="time" id="time" name="time" required />
+        </div>
+
+        <!-- แนบรูปภาพ -->
+        <div class="form-group">
+          <label for="itemImage">แนบรูปภาพ (ถ้ามี)</label>
+          <input
+            type="file"
+            id="itemImage"
+            name="itemImage"
+            accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="userStatus">สถานะผู้ใช้งาน</label>
+          <select id="userStatus" name="userStatus" required>
+            <option value="">-- เลือกสถานะ --</option>
+            <option value="student">นักศึกษา</option>
+            <option value="external">บุคคลภายนอก</option>
+          </select>
+        </div>
+
+        <!-- ช่องทางติดต่อผู้แจ้ง -->
+        <div class="form-group">
+          <label for="reporterName">ชื่อผู้แจ้ง</label>
+          <input
+            type="text"
+            id="reporterName"
+            placeholder="ชื่อ-สกุล"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="reporterPhone">เบอร์โทรผู้แจ้ง</label>
+          <input
+            type="tel"
+            id="reporterPhone"
+            placeholder="เช่น 0812345678"
+            inputmode="numeric"
+            maxlength="10"
+            pattern="[0-9]{10}"
+            oninput="
+              this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)
+            "
+            required
+          />
+        </div>
+
+        <!-- เฉพาะนักศึกษา -->
+        <div id="studentOnlyFields" style="display: none">
+          <div class="form-group">
+            <label for="reporterStudentId">เลขนักศึกษาผู้แจ้ง</label>
+            <input
+              type="text"
+              id="reporterStudentId"
+              placeholder="เช่น 6612345678"
+              inputmode="numeric"
+              maxlength="10"
+              pattern="[0-9]{10}"
+              oninput="
+                this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)
+              "
+            />
+          </div>
+          <div class="form-group">
+            <label for="reporterFaculty">คณะ</label>
+            <input
+              type="text"
+              id="reporterFaculty"
+              placeholder="วิทยาศาสตร์, บัญชี"
+            />
+          </div>
+          <div class="form-group">
+            <label for="reporterMajor">สาขา</label>
+            <input
+              type="text"
+              id="reporterMajor"
+              placeholder="เช่น วิทยาการคอมพิวเตอร์, สถิติ"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="reporterEmail">Email</label>
+          <input
+            type="email"
+            id="reporterEmail "
+            placeholder="เช่น kuma@dome.tu.ac.th"
+            required
+          />
+        </div>
+
+        <button id="reportBtn">ส่งข้อมูลแจ้งของหาย</button>
+        <p id="status"></p>
+      </div>
     </div>
 
-<script src="liff.js"></script>
-<script src="js/pdpa.js"></script>
-<script src="js/lost.js"></script>
-</body>
+    <script src="liff.js"></script>
+    <script src="js/pdpa.js"></script>
+    <script src="js/lost.js"></script>
+  </body>
 </html>

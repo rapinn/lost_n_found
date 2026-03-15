@@ -1,70 +1,126 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="th">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ค้นหาของสูญหาย</title>
-  <link rel="stylesheet" href="css/search.css">
-  <link rel="stylesheet" href="css/pdpa.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ค้นหาของสูญหาย</title>
+    <link rel="stylesheet" href="css/search.css" />
+    <link rel="stylesheet" href="css/pdpa.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="section" id="searchSection">
+        <h1>🔍 ค้นหาของหาย</h1>
+        <div class="form-group">
+          <label for="searchItemName">ชื่อสิ่งของ</label>
+          <input
+            type="text"
+            id="searchItemName"
+            placeholder="เช่น กระเป๋า, โทรศัพท์"
+          />
+        </div>
+        <div class="form-group">
+          <label for="searchLocation">สถานที่</label>
+          <input
+            type="text"
+            id="searchLocation"
+            placeholder="เช่น อาคาร SC3, โรงอาหาร SC"
+          />
+        </div>
+        <div class="form-group">
+          <label for="searchDate">วันที่</label>
+          <input type="date" id="searchDate" />
+        </div>
+        <div class="form-group">
+          <label for="searchDetails">รายละเอียดเพิ่มเติม</label>
+          <input
+            type="text"
+            id="searchDetails"
+            placeholder="เช่น สีดำ, มีสติ๊กเกอร์ติด"
+          />
+        </div>
+        <button id="searchBtn">ค้นหา</button>
 
-</head>
-<body>
-  <div class="container">
-    <div class="section" id="searchSection">
-      <h1>🔍 ค้นหาของหาย</h1>
-      <div class="form-group">
-        <label for="searchItemName">ชื่อสิ่งของ</label>
-        <input type="text" id="searchItemName" placeholder="เช่น กระเป๋า, โทรศัพท์">
+        <div style="margin-top: 20px">
+          <a href="lost.html" style="text-decoration: none">
+            <button class="lost-report-btn">แจ้งของหาย</button>
+          </a>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="searchLocation">สถานที่</label>
-        <input type="text" id="searchLocation" placeholder="เช่น อาคาร SC3, โรงอาหาร SC">
-      </div>
-      <div class="form-group">
-        <label for="searchDate">วันที่</label>
-        <input type="date" id="searchDate">
-      </div>
-      <div class="form-group">
-        <label for="searchDetails">รายละเอียดเพิ่มเติม</label>
-        <input type="text" id="searchDetails" placeholder="เช่น สีดำ, มีสติ๊กเกอร์ติด">
-      </div>
-      <button id="searchBtn">ค้นหา</button>
-      
-      <div style="margin-top: 20px;">
-        <a href="lost.html" style="text-decoration: none;">
-          <button style="width: 100%; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background-color: #ffd13f; color: black; cursor: pointer; font-weight: bold; transition: background-color 0.2s;">
-            แจ้งของหาย
+
+      <div id="adminTableContainer" style="margin-top: 20px; display: none">
+        <h2>📋 ผลการค้นหา</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>ลำดับ</th>
+                <th>ประเภทการแจ้ง</th>
+                <th>หมวดหมู่</th>
+                <th>รูปภาพ</th>
+                <th>ยี่ห้อ/รุ่น</th>
+                <th>รายละเอียด</th>
+                <th>วันที่</th>
+                <th>เวลา</th>
+                <th>สถานที่พบ</th>
+                <th>ผู้แจ้ง</th>
+              </tr>
+            </thead>
+            <tbody id="adminTableBody"></tbody>
+          </table>
+        </div>
+
+        <div id="contactSection" class="contact-section">
+          <button id="contactToggleBtn" class="contact-toggle-btn">
+            ติดต่อรับสิ่งของ
           </button>
-        </a>
+
+          <div id="contactForm" class="contact-form">
+            <h3>กรุณากรอกข้อมูล</h3>
+
+            <div
+              id="contactItemsContainer"
+              class="contact-items-container"
+            ></div>
+
+            <div class="form-group">
+              <label for="contactName">ชื่อ - นามสกุล</label>
+              <input
+                type="text"
+                id="contactName"
+                placeholder="ชื่อ - นามสกุล"
+              />
+            </div>
+            <div class="form-group">
+              <label for="contactPhone">เบอร์ติดต่อ</label>
+              <input
+                type="tel"
+                id="contactPhone"
+                placeholder="เช่น 0812345678"
+              />
+            </div>
+            <div class="form-group">
+              <label for="contactDate">วันที่/เดือน/ปี ที่จะมารับสิ่งของ</label>
+              <input type="date" id="contactDate" />
+            </div>
+            <div class="form-group">
+              <label for="contactTime">เวลา ที่จะมารับของ</label>
+              <input type="time" id="contactTime" />
+            </div>
+
+            <button id="contactSubmitBtn" class="contact-submit-btn">
+              แจ้งขอรับสิ่งของ
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="mapPlaceholder" class="map-placeholder">
+        <img src="img/howto.png" alt="แผนที่" />
       </div>
     </div>
 
-    <div id="adminTableContainer" style="margin-top:20px; display:none;">
-      <h2>📋 ผลการค้นหา</h2>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>ลำดับ</th>
-              <th>ประเภทการแจ้ง</th>
-              <th>หมวดหมู่</th>
-              <th>รูปภาพ</th>
-              <th>ยี่ห้อ/รุ่น</th>
-              <th>รายละเอียด</th>
-              <th>วันที่</th>
-              <th>เวลา</th>
-              <th>สถานที่พบ</th>
-              <th>ผู้แจ้ง</th>
-            </tr>
-          </thead>
-          <tbody id="adminTableBody"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <script src="js/pdpa.js"></script>
-  <script src="js/search.js"></script>
-
-</body>
+    <script src="js/pdpa.js"></script>
+    <script src="js/search.js"></script>
+  </body>
 </html>

@@ -1,105 +1,174 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="th">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>แจ้งเรื่องพบของ</title>
-  <link rel="stylesheet" href="css/found.css">
-  <link rel="stylesheet" href="css/pdpa.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>แจ้งเรื่องพบของ</title>
+    <link rel="stylesheet" href="css/found.css" />
+    <link rel="stylesheet" href="css/pdpa.css" />
+  </head>
+  <body>
+    <form id="foundForm">
+      <h1>📦 แจ้งเรื่องพบของ</h1>
+      <p class="intro">
+        กรุณากรอกข้อมูลของที่คุณพบ เพื่อให้เจ้าของสามารถติดต่อกลับได้ค่ะ
+      </p>
 
-  <form id="foundForm">
-    <h1>📦 แจ้งเรื่องพบของ</h1>
-    <p class="intro">กรุณากรอกข้อมูลของที่คุณพบ เพื่อให้เจ้าของสามารถติดต่อกลับได้ค่ะ</p>
+      <div class="form-group">
+        <label for="category">หมวดหมู่</label>
+        <select
+          id="category"
+          name="category"
+          required
+          onchange="toggleOtherCategory()"
+        >
+          <option value="">-- เลือกหมวดหมู่ --</option>
+          <option>บัตร</option>
+          <option>โทรศัพท์</option>
+          <option>อุปกรณ์อิเล็กทรอนิกส์</option>
+          <option>เครื่องเขียน</option>
+          <option value="other">อื่น ๆ</option>
+        </select>
+      </div>
 
-    <div class="form-group">
-      <label for="category">หมวดหมู่</label>
-      <select id="category" name="category" required onchange="toggleOtherCategory()">
-        <option value="">-- เลือกหมวดหมู่ --</option>
-        <option>บัตร</option>
-        <option>โทรศัพท์</option>
-        <option>อุปกรณ์อิเล็กทรอนิกส์</option>
-        <option>เครื่องเขียน</option>
-        <option value="other">อื่น ๆ</option>
-      </select>
-    </div>
+      <div class="form-group" id="otherCategoryGroup" style="display: none">
+        <label for="otherCategory">ระบุหมวดหมู่สิ่งของ</label>
+        <input
+          type="text"
+          id="otherCategory"
+          placeholder="เช่น กระเป๋า, เสื้อผ้า"
+        />
+      </div>
 
+      <div class="form-group">
+        <label for="brand">ยี่ห้อ / หมายเลขบัตร (ถ้ามี)</label>
+        <input
+          type="text"
+          id="brand"
+          name="brand"
+          placeholder="เช่น Student ID 6612345678"
+        />
+      </div>
 
-    <div class="form-group" id="otherCategoryGroup" style="display:none;">
-      <label for="otherCategory">ระบุหมวดหมู่สิ่งของ</label>
-      <input type="text" id="otherCategory" placeholder="เช่น กระเป๋า, เสื้อผ้า">
-    </div>
+      <div class="form-group">
+        <label for="details">รายละเอียดเพิ่มเติม</label>
+        <textarea
+          id="details"
+          name="details"
+          rows="4"
+          placeholder="เช่น เจอหูฟังสีดำ หน้าห้องสมุดชั้น 2"
+          required
+        ></textarea>
+      </div>
 
-    <div class="form-group">
-      <label for="brand">ยี่ห้อ / หมายเลขบัตร (ถ้ามี)</label>
-      <input type="text" id="brand" name="brand" placeholder="เช่น Student ID 6612345678">
-    </div>
+      <div class="form-group">
+        <label for="location">สถานที่ที่พบ</label>
+        <input
+          type="text"
+          id="location"
+          name="location"
+          placeholder="เช่น อาคาร บร3"
+          required
+        />
+      </div>
 
-    <div class="form-group">
-      <label for="details">รายละเอียดเพิ่มเติม</label>
-      <textarea id="details" name="details" rows="4" placeholder="เช่น เจอหูฟังสีดำ หน้าห้องสมุดชั้น 2" required></textarea>
-    </div>
+      <div class="form-group">
+        <label for="date">วันที่ที่พบ (เดือน/วัน/ปี)</label>
+        <input type="date" id="date" name="date" required />
+      </div>
 
-    <div class="form-group">
-      <label for="location">สถานที่ที่พบ</label>
-      <input type="text" id="location" name="location" placeholder="เช่น อาคาร บร3" required>
-    </div>
+      <div class="form-group">
+        <label for="time">เวลาที่พบ</label>
+        <input type="time" id="time" name="time" required />
+      </div>
 
+      <div class="form-group">
+        <label for="itemImage">แนบรูปภาพ (ถ้ามี)</label>
+        <input
+          type="file"
+          id="itemImage"
+          name="itemImage"
+          accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+        />
+      </div>
 
-    <div class="form-group">
-      <label for="date">วันที่ที่พบ</label>
-      <input type="date" id="date" name="date" required>
-    </div>
+      <div class="form-group">
+        <label for="userStatus">สถานะผู้ใช้งาน</label>
+        <select id="userStatus" name="userStatus" required>
+          <option value="">-- เลือกสถานะ --</option>
+          <option value="student">บุคลากร / นักศึกษาในมหาวิทยาลัย</option>
+          <option value="external">บุคคลภายนอกมหาวิทยาลัย</option>
+        </select>
+      </div>
 
-    <div class="form-group">
-      <label for="time">เวลาที่พบ</label>
-      <input type="time" id="time" name="time" required>
-    </div>
+      <div class="form-group">
+        <label for="reporterName">ชื่อผู้แจ้ง</label>
+        <input type="text" id="reporterName" placeholder="ชื่อ-สกุล" required />
+      </div>
+      <div class="form-group">
+        <label for="reporterPhone">เบอร์โทรผู้แจ้ง</label>
+        <input
+          type="tel"
+          id="reporterPhone"
+          placeholder="เช่น 0812345678"
+          inputmode="numeric"
+          maxlength="10"
+          pattern="[0-9]{10}"
+          oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)"
+          required
+        />
+      </div>
 
-    <div class="form-group">
-      <label for="itemImage">แนบรูปภาพ (ถ้ามี)</label>
-      <input type="file" id="itemImage" name="itemImage" accept="image/jpeg,image/jpg,image/png,image/gif,image/webp">
-    </div>
+      <!-- เฉพาะนักศึกษา -->
+      <div id="studentOnlyFields" style="display: none">
+        <div class="form-group">
+          <label for="reporterStudentId">เลขนักศึกษาผู้แจ้ง</label>
+          <input
+            type="text"
+            id="reporterStudentId"
+            placeholder="เช่น 6612345678"
+            inputmode="numeric"
+            maxlength="10"
+            pattern="[0-9]{10}"
+            oninput="
+              this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)
+            "
+          />
+        </div>
+        <div class="form-group">
+          <label for="reporterFaculty">คณะ</label>
+          <input
+            type="text"
+            id="reporterFaculty"
+            placeholder="วิทยาศาสตร์, บัญชี"
+          />
+        </div>
+        <div class="form-group">
+          <label for="reporterMajor">สาขา</label>
+          <input
+            type="text"
+            id="reporterMajor"
+            placeholder="เช่น วิทยาการคอมพิวเตอร์, สถิติ"
+          />
+        </div>
+      </div>
 
+      <div class="form-group">
+        <label for="reporterEmail">Email</label>
+        <input
+          type="email"
+          id="reporterEmail "
+          placeholder="เช่น kuma@dome.tu.ac.th"
+          required
+        />
+      </div>
 
-    <div class="form-group">
-      <label for="reporterName">ชื่อผู้แจ้ง</label>
-      <input type="text" id="reporterName" placeholder="ชื่อ-สกุล" required>
-    </div>
-    <div class="form-group">
-      <label for="reporterPhone">เบอร์โทรผู้แจ้ง</label>
-      <input 
-        type="tel" 
-        id="reporterPhone" 
-        placeholder="เช่น 0812345678" 
-        inputmode="numeric"
-        maxlength="10"
-        pattern="[0-9]{10}"
-        oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10);"
-        required>
-    </div>
-    <div class="form-group">
-      <label for="reporterStudentId">เลขนักศึกษาผู้แจ้ง</label>
-      <input
-        type="text"
-        id="reporterStudentId"
-        placeholder="เช่น 6612345678"
-        inputmode="numeric"
-        maxlength="10"
-        pattern="[0-9]{10}"
-        oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10);"
-        required
-      >
-    </div>
+      <button type="button" id="submitBtn">ส่งข้อมูลพบของหาย</button>
+      <p id="status" style="text-align: center; margin-top: 10px"></p>
+    </form>
 
-    <button type="button" id="submitBtn">ส่งข้อมูลพบของหาย</button>
-    <p id="status" style="text-align:center;margin-top:10px;"></p>
-  </form>
-
-  <script src="liff.js"></script>
-  <script src="js/pdpa.js"></script>
-  <script src="js/found.js"></script>
-
-</body>
+    <script src="liff.js"></script>
+    <script src="js/pdpa.js"></script>
+    <script src="js/found.js"></script>
+  </body>
 </html>

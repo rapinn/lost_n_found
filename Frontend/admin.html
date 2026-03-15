@@ -1,83 +1,83 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="th">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ระบบจัดการ - รายการสิ่งของที่เก็บได้</title>
-  <link rel="stylesheet" href="css/admin.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ระบบจัดการ - รายการสิ่งของที่เก็บได้</title>
+    <link rel="stylesheet" href="css/admin.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>🔧 ระบบจัดการ - รายการสิ่งของที่เก็บได้</h1>
 
-</head>
-<body>
-  <div class="container">
-    <h1>🔧 ระบบจัดการ - รายการสิ่งของที่เก็บได้</h1>
+      <!-- ตัวเลือก -->
+      <div class="filter-section">
+        <select id="categoryFilter">
+          <option value="">-- ทุกหมวดหมู่ --</option>
+          <option value="บัตร">บัตร</option>
+          <option value="โทรศัพท์">โทรศัพท์</option>
+          <option value="อุปกรณ์อิเล็กทรอนิกส์">อุปกรณ์อิเล็กทรอนิกส์</option>
+          <option value="เครื่องเขียน">เครื่องเขียน</option>
+          <option value="อื่นๆ">อื่นๆ</option>
+        </select>
 
-    <!-- Filter Section -->
-    <div class="filter-section">
-            <select id="categoryFilter">
-        <option value="">-- ทุกหมวดหมู่ --</option>
-        <option value="บัตร">บัตร</option>
-        <option value="โทรศัพท์">โทรศัพท์</option>
-        <option value="อุปกรณ์อิเล็กทรอนิกส์">อุปกรณ์อิเล็กทรอนิกส์</option>
-        <option value="เครื่องเขียน">เครื่องเขียน</option>
-        <option value="อื่นๆ">อื่นๆ</option>
-      </select>
+        <select id="statusFilter">
+          <option value="">-- ทุกสถานะ --</option>
+          <option value="แจ้งแล้ว" class="head1">แจ้งแล้ว</option>
+          <option value="รอรับคืน" class="head2">
+            รอรับคืน (Waiting for pick up)
+          </option>
+          <option value="คืนเจ้าของแล้ว" class="head3">
+            คืนเจ้าของแล้ว (Received)
+          </option>
+          <option value="หมดอายุ" class="head4">หมดอายุ (Expired)</option>
+        </select>
 
-      <select id="statusFilter">
-        <option value="">-- ทุกสถานะ --</option>
-        <option value="แจ้งแล้ว" class="head1">แจ้งแล้ว</option>
-        <option value="รอรับคืน" class="head2">รอรับคืน (Waiting for pick up)</option>
-        <option value="คืนเจ้าของแล้ว" class="head3">คืนเจ้าของแล้ว (Received)</option>
-        <option value="หมดอายุ" class="head4">หมดอายุ (Expired)</option>
-      </select>
-      
-      <input type="date" id="expiryFilter" placeholder="กรองตามวันที่" />
-      
-      <button onclick="applyFilters()">ค้นหา</button>
+        <input type="date" id="expiryFilter" placeholder="กรองตามวันที่" />
+
+        <button onclick="applyFilters()">ค้นหา</button>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <colgroup>
+            <col style="width: 80px" />
+            <col style="width: 120px" />
+            <col style="width: 140px" />
+            <col style="width: 100px" />
+            <col style="width: 140px" />
+            <col style="width: 140px" />
+            <col style="width: 180px" />
+            <col style="width: 120px" />
+            <col style="width: 100px" />
+            <col style="width: 140px" />
+            <col style="width: 180px" />
+            <col style="width: 160px" />
+            <col style="width: 120px" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>ลำดับ</th>
+              <th>ประเภทการแจ้ง<br />(Type)</th>
+              <th>หมวดหมู่<br />(Category)</th>
+              <th>รูปภาพ<br />(Picture)</th>
+              <th>ยี่ห้อ/รุ่น<br />(Brand)</th>
+              <th>รายละเอียด<br />(Details)</th>
+              <th>วันที่<br />(Date)</th>
+              <th>เวลา<br />(Time)</th>
+              <th>สถานที่<br />(Location)</th>
+              <th>ผู้แจ้ง<br />(Reporter)</th>
+              <th>Case ID</th>
+              <th>สถานะ<br />(Status)</th>
+              <th>การจัดการ<br />(Actions)</th>
+            </tr>
+          </thead>
+          <tbody id="adminTableBody"></tbody>
+        </table>
+      </div>
     </div>
 
-    <div class="table-wrapper">
-      <table>
-        <colgroup>
-          <col style="width:80px">
-          <col style="width:120px">
-          <col style="width:140px">
-          <col style="width:100px">
-          <col style="width:140px">
-          <col style="width:140px">
-          <col style="width:180px">
-          <col style="width:120px">
-          <col style="width:100px">
-          <col style="width:140px">
-          <col style="width:180px">
-          <col style="width:160px">
-          <col style="width:120px">
-        </colgroup>
-        <thead>
-          <tr>
-            <th>ลำดับ</th>
-            <th>ประเภทการแจ้ง<br>(Type)</th>
-            <th>หมวดหมู่<br>(Category)</th>
-            <th>รูปภาพ<br>(Picture)</th>
-            <th>ยี่ห้อ/รุ่น<br>(Brand)</th>
-            <th>รายละเอียด<br>(Details)</th>
-            <th>วันที่<br>(Date)</th>
-            <th>เวลา<br>(Time)</th>
-            <th>สถานที่<br>(Location)</th>
-            <th>ผู้แจ้ง<br>(Reporter)</th>
-            <th>Case ID</th>
-            <th>สถานะ<br>(Status)</th>
-            <th>การจัดการ<br>(Actions)</th>
-          </tr>
-        </thead>
-        <tbody id="adminTableBody">
-
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <script src="liff.js"></script>
-  <script src="js/admin.js"></script>
-
-</body>
+    <script src="liff.js"></script>
+    <script src="js/admin.js"></script>
+  </body>
 </html>

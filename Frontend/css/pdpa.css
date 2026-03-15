@@ -1,7 +1,10 @@
+/* พื้นหลังเบลอสีแดงโปร่งแสง */
 .pdpa-consent-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(185, 28, 28, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,30 +17,46 @@
   width: 100%;
   background: #fff;
   border-radius: 16px;
-  padding: 24px;
+  overflow: hidden;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.26);
   color: #1f2937;
   text-align: left;
+  display: flex;
+  flex-direction: column;
 }
 
 .pdpa-consent-card h2 {
-  margin-top: 0;
-  font-size: 20px;
+  margin: 0;
+  background-color: #6b0000;
+  color: #ffffff;
+  padding: 20px 16px;
+  font-size: 18px;
   text-align: center;
-  color: #b91c1c;
+  line-height: 1.5;
 }
 
 .pdpa-consent-body {
   max-height: 50vh;
   overflow-y: auto;
-  margin: 16px 0;
+  margin: 0;
+  padding: 24px 24px 16px 24px;
   line-height: 1.6;
   color: #334155;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+}
+
+.pdpa-consent-body::-webkit-scrollbar {
+  display: none;
 }
 
 .pdpa-consent-btn {
-  width: 100%;
-  margin-top: 8px;
+  width: calc(100% - 48px);
+  margin: 0 24px 24px 24px;
   background-color: #b91c1c;
   color: white;
   border: none;
@@ -45,28 +64,9 @@
   border-radius: 8px;
   font-size: 18px;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .pdpa-consent-btn:hover {
   background-color: #991b1b;
-}
-
-.pdpa-consent-body {
-  max-height: 50vh;
-  overflow-y: auto;
-  margin: 16px 0;
-  line-height: 1.6;
-  color: #334155;
-  /* ---  Scrollbar --- */
-  -ms-overflow-style: none;  /*  Edge */
-  scrollbar-width: none;     /*  Firefox */
-}
-/* Chrome, Safari Opera */
-.pdpa-consent-body::-webkit-scrollbar {
-  display: none;
-}
-
-.pdpa-consent-body {
-  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
 }

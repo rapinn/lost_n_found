@@ -1,30 +1,30 @@
 // PDPA
 (function () {
-    const storageKey = 'pdpaConsentAccepted';
+  const storageKey = "pdpaConsentAccepted";
 
-    // Exclude admin pages 
-    const excludePaths = ['admin.html', '/admin'];
-    if (excludePaths.some((p) => window.location.pathname.includes(p))) {
-        return;
-    }
+  // Exclude admin pages
+  const excludePaths = ["admin.html", "/admin"];
+  if (excludePaths.some((p) => window.location.pathname.includes(p))) {
+    return;
+  }
 
-    let hasConsent = false;
-    try {
-        hasConsent = localStorage.getItem(storageKey) === 'true';
-    } catch (e) {
-        console.warn('PDPA consent: localStorage unavailable', e);
-    }
+  let hasConsent = false;
+  try {
+    hasConsent = localStorage.getItem(storageKey) === "true";
+  } catch (e) {
+    console.warn("PDPA consent: localStorage unavailable", e);
+  }
 
-    if (hasConsent) return;
+  if (hasConsent) return;
 
-    const overlay = document.createElement('div');
-    overlay.id = 'pdpaConsentOverlay';
-    overlay.className = 'pdpa-consent-overlay';
-    overlay.setAttribute('role', 'dialog');
-    overlay.setAttribute('aria-modal', 'true');
-    overlay.setAttribute('aria-labelledby', 'pdpaConsentTitle');
+  const overlay = document.createElement("div");
+  overlay.id = "pdpaConsentOverlay";
+  overlay.className = "pdpa-consent-overlay";
+  overlay.setAttribute("role", "dialog");
+  overlay.setAttribute("aria-modal", "true");
+  overlay.setAttribute("aria-labelledby", "pdpaConsentTitle");
 
-    overlay.innerHTML = `
+  overlay.innerHTML = `
       <div class="pdpa-consent-card">
         <h2 id="pdpaConsentTitle">การขอความยินยอมในการเก็บรวบรวมข้อมูลส่วนบุคคล (PDPA)</h2>
         <div class="pdpa-consent-body">
@@ -34,19 +34,19 @@
           </p>
           <p>‎</p>
         </div>
-        <button type="button" id="pdpaConsentAgreeBtn" class="pdpa-consent-btn">ยินยอม</button>
+        <button type="button" id="pdpaConsentAgreeBtn" class="pdpa-consent-btn">ยินยอม ✓</button>
       </div>
     `;
 
-    document.body.appendChild(overlay);
+  document.body.appendChild(overlay);
 
-    const agreeBtn = document.getElementById('pdpaConsentAgreeBtn');
-    agreeBtn?.addEventListener('click', () => {
-        try {
-            localStorage.setItem(storageKey, 'true');
-        } catch (e) {
-            console.warn('PDPA consent: could not save to localStorage', e);
-        }
-        overlay.remove();
-    });
+  const agreeBtn = document.getElementById("pdpaConsentAgreeBtn");
+  agreeBtn?.addEventListener("click", () => {
+    try {
+      localStorage.setItem(storageKey, "true");
+    } catch (e) {
+      console.warn("PDPA consent: could not save to localStorage", e);
+    }
+    overlay.remove();
+  });
 })();
