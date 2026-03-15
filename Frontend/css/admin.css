@@ -1,0 +1,284 @@
+
+    body {
+      font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #bc3030;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      overflow-x: auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-top: 0;
+    }
+
+    .filter-section {
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+    }
+
+    .filter-section select, 
+    .filter-section input, 
+    .filter-section button {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      flex: 1;
+      min-width: 150px;
+      box-sizing: border-box;
+    }
+
+    .filter-section button {
+      background-color: #ffd13f;
+      color: black;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.2s;
+    }
+    .filter-section button:hover { background-color: #da8012; }
+
+    /* สไตล์ตารางสำหรับหน้าจอใหญ่ */
+    .table-wrapper { 
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    table {
+      width: 100%;
+      min-width: 1300px;
+      border-collapse: collapse;
+      margin-top: 20px;
+      table-layout: auto;
+    }
+
+    table th, table td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+      vertical-align: top;
+      white-space: normal;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      hyphens: auto;
+    }
+
+    table th {
+      background-color: #f9f9f9;
+      font-weight: bold;
+      line-height: 1.4;
+      white-space: normal;
+    }
+
+    /* คอลัมน์ลำดับไม่ให้ตัดบรรทัด */
+    table th:first-child {
+      white-space: nowrap;
+    }
+
+    .status {
+      font-weight: bold;
+      padding: 5px 10px;
+      border-radius: 4px;
+      display: inline-block;
+      white-space: nowrap;
+    }
+    .status.waiting { background-color: #28a745; color: white; }
+    .status.received { background-color: #007bff; color: white; }
+    .status.expiring { background-color: #ffa500; color: white; }
+    .status.expired { background-color: #dc3545; color: white; }
+
+    button {
+      padding: 5px 10px;
+      background-color: #ffd13f;
+      color: black;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      transition: background-color 0.2s;
+    }
+    button:hover { background-color: #da8012; }
+
+    /* ปรับ input วันที่/เวลาให้แสดงดีบน iPhone */
+    input[type="date"], 
+    input[type="time"] {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 44px;
+      padding: 10px 12px;
+      font-size: 16px;
+      line-height: 1.2;
+    }
+    input[type="date"]::-webkit-date-and-time-value,
+    input[type="time"]::-webkit-date-and-time-value {
+      text-align: left;
+    }
+
+    /* สไตล์สำหรับมือถือเท่านั้น */
+    @media (max-width: 768px) {
+      body { padding: 12px; }
+      
+      .container {
+        padding: 16px;
+        overflow-x: visible;
+      }
+
+      h1 { 
+        font-size: 20px; 
+        margin-bottom: 16px;
+      }
+
+      /* ส่วนกรองข้อมูลแสดงแนวตั้งบนมือถือ */
+      .filter-section {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .filter-section select,
+      .filter-section input,
+      .filter-section button {
+        width: 100%;
+        min-width: auto;
+      }
+
+      /* ซ่อนการกำหนดความกว้างคอลัมน์บนมือถือ */
+      colgroup { display: none; }
+
+      .table-wrapper { 
+        overflow: visible;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      table {
+        display: block;
+        width: 100% !important;
+        min-width: auto;
+        max-width: 460px;
+        margin: 0 auto;
+        border-collapse: separate;
+        border-spacing: 0;
+      }
+
+      /* ซ่อนหัวตารางใน mobile */
+      table thead { display: none; }
+
+      table tbody { display: block; width: 100%; }
+
+      /* การ์ดแต่ละแถว */
+      table tbody tr {
+        display: block;
+        width: 100%;
+        margin: 0 auto 14px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        padding: 12px 14px;
+        box-sizing: border-box;
+      }
+
+      /* เซลล์ในการ์ด */
+      table tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        border: none;
+        border-bottom: 1px solid #eee;
+        padding: 8px 0;
+        text-align: left;
+        white-space: normal;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+      }
+      table tbody td:last-child { border-bottom: none; }
+
+      /* label ด้านซ้าย - ให้ภาษาอังกฤษขึ้นบรรทัดใหม่ */
+      table tbody td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #666;
+        margin-right: 8px;
+        min-width: 130px;
+        max-width: 130px;
+        flex-shrink: 0;
+        white-space: normal;
+        word-break: break-word;
+        line-height: 1.3;
+      }
+
+      /* รูปภาพ */
+      table td[data-label^="รูปภาพ"] img,
+      table td[data-label*="Picture"] img {
+        max-width: 72px;
+        max-height: 72px;
+        object-fit: cover;
+      }
+
+      /* สถานะ */
+      table td[data-label^="สถานะ"] .status,
+      table td[data-label*="Status"] .status {
+        display: inline-block;
+        padding: 6px 10px;
+      }
+
+      /* ปุ่มการจัดการ */
+      table td[data-label^="การจัดเก็บ"] button,
+      table td[data-label*="Record"] button {
+        width: 100%;
+        margin-top: 4px;
+      }
+
+      /* รายละเอียดผู้แจ้ง - ให้แสดงแนวตั้ง */
+      table td[data-label^="รายละเอียดผู้แจ้ง"],
+      table td[data-label*="Reporter Details"] {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      table td[data-label^="รายละเอียดผู้แจ้ง"]::before,
+      table td[data-label*="Reporter Details"]::before {
+        margin-bottom: 8px;
+      }
+
+      table td[data-label^="รายละเอียดผู้แจ้ง"] > div,
+      table td[data-label*="Reporter Details"] > div {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 4px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      table td[data-label^="รายละเอียดผู้แจ้ง"] > div:last-child,
+      table td[data-label*="Reporter Details"] > div:last-child {
+        border-bottom: none;
+      }
+
+      table td[data-label^="รายละเอียดผู้แจ้ง"] strong,
+      table td[data-label*="Reporter Details"] strong {
+        color: #666;
+        font-weight: 600;
+        min-width: 100px;
+      }
+
+      th.head1 { background: #ffe4e1; color: #000; }
+      th.head2 { background: #e6f4ea; color: #000; }
+      th.head3 { background: #f9eedf; color: #000; }
+      th.head4 { background: #ebedfa; color: #000; }
+    }
