@@ -3,7 +3,8 @@
       font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       margin: 0;
       padding: 20px;
-      background-color: #bc3030;
+      /* เปลี่ยนพื้นหลังหน้า admin ให้เป็นสีขาว */
+      background-color: #ffffff;
       color: #333;
     }
 

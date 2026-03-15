@@ -112,8 +112,6 @@
             <td data-label="ผู้แจ้ง">
               <div style="font-size:0.875rem;">
                 <div><strong>ชื่อ:</strong> ${item.reporter_name || '-'}</div>
-                <div><strong>เบอร์:</strong> ${item.reporter_contact || '-'}</div>
-                ${item.reporter_student_id ? `<div><strong>รหัส:</strong> ${item.reporter_student_id}</div>` : ''}
               </div>
             </td>
           </tr>
