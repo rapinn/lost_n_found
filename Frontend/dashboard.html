@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TU Lost & Found — Analytics Dashboard</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+    <aside class="sidebar">
+    <div class="logo">
+        <div> <img src="" alt=""></div> 
+        <div class="logo-name">TU Lost &amp; Found</div>
+    </div>
+    <nav>
+        <a class="nav-item active" href="#">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Dashboard Overview
+        </a>
+        <a class="nav-item" href="#">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 1 4 0M9 5h6"/></svg>
+        จัดการรายการสิ่งของ
+        </a>
+        <a class="nav-item" href="#">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-5m-1.414-9.414a2 2 0 1 1 2.828 2.828L11.828 15H9v-2.828z"/></svg>
+        รายการแจ้งของหาย
+        </a>
+        <a class="nav-item" href="#">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        ประวัติการส่งคืน
+        </a>
+        <a class="nav-item" href="#">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+        การตั้งค่าระบบ
+        </a>
+    </nav>
+    </aside>
+
+<!-- MAIN -->
+    <main class="main">
+
+    <!-- Topbar -->
+    <div class="topbar">
+        <h1>Analytics Dashboard</h1>
+        <div class="topbar-right">
+        <select class="month-select" id="monthSelect">
+            <option>เดือนนี้ (มี.ค. 2026)</option>
+        </select>
+        <button class="btn-export" id="btnExport">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            Export Report
+        </button>
+        </div>
+    </div>
+
+    <!-- Stat Cards -->
+    <div class="stat-grid">
+        <div class="stat-card">
+        <div>
+            <div class="stat-label">รายการพบของทั้งหมด (Found)</div>
+            <div class="stat-value" id="val-found">0</div>
+            <div class="stat-change neutral" id="chg-found">— ยังไม่มีข้อมูล</div>
+        </div>
+        <div class="stat-icon i-red">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C41E3A" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        </div>
+        </div>
+        <div class="stat-card">
+        <div>
+            <div class="stat-label">รายการแจ้งของหาย (Lost)</div>
+            <div class="stat-value" id="val-lost">0</div>
+            <div class="stat-change neutral" id="chg-lost">— ยังไม่มีข้อมูล</div>
+        </div>
+        <div class="stat-icon i-amber">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </div>
+        </div>
+        <div class="stat-card">
+        <div>
+            <div class="stat-label">อัตราการคืนสำเร็จ</div>
+            <div class="stat-value" id="val-rate">0%</div>
+            <div class="stat-change neutral" id="chg-rate">— ยังไม่มีข้อมูล</div>
+        </div>
+        <div class="stat-icon i-teal">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0F766E" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        </div>
+        <div class="stat-card">
+        <div>
+            <div class="stat-label">รอระบาย / ใกล้หมดอายุ</div>
+            <div class="stat-value" id="val-expiring">0</div>
+            <div class="stat-change neutral" id="chg-expiring">— ยังไม่มีรายการ</div>
+        </div>
+        <div class="stat-icon i-pink">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C41E3A" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6m5 0V4h4v2"/></svg>
+        </div>
+        </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="chart-row">
+        <div class="card">
+        <div class="card-title">สถิติการแจ้งหายและพบของ (รายเดือน)</div>
+        <div class="chart-legend">
+            <span><span class="legend-line"></span>พบของ (Found)</span>
+            <span><span class="legend-bar"></span>แจ้งหาย (Lost)</span>
+        </div>
+        <div class="chart-wrap"><canvas id="mainChart"></canvas></div>
+        </div>
+        <div class="card">
+        <div class="card-title">หมวดหมู่สิ่งของ (Categories)</div>
+        <div class="donut-wrap"><canvas id="donutChart"></canvas></div>
+        <div class="cat-legend">
+            <div class="cat-item"><div class="cat-dot" style="background:#C41E3A"></div>มือถือ</div>
+            <div class="cat-item"><div class="cat-dot" style="background:#1ABC9C"></div>อุปกรณ์ไอที</div>
+            <div class="cat-item"><div class="cat-dot" style="background:#F39C12"></div>เครื่องเขียน</div>
+            <div class="cat-item"><div class="cat-dot" style="background:#E84393"></div>ของใช้ส่วนตัว</div>
+            <div class="cat-item"><div class="cat-dot" style="background:#C0C0C0"></div>อื่นๆ</div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Action Table -->
+    <div class="card">
+        <div class="table-header">
+        <div class="card-title">รายการสิ่งของที่ใกล้หมดระยะเวลาเก็บรักษา (Action Required)</div>
+        <button class="btn-viewall" id="btnViewAll">ดูทั้งหมด →</button>
+        </div>
+        <div class="table-scroll">
+        <table>
+            <thead>
+            <tr>
+                <th>รายการสิ่งของ</th>
+                <th>ประเภทมูลค่า</th>
+                <th>วันที่รับของ</th>
+                <th>ระยะเวลาเก็บรักษา</th>
+                <th>สถานะการหมดอายุ</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody id="action-table-body"></tbody>
+        </table>
+        </div>
+    </div>
+
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="dashboard.js"></script>
+</body>
+</html>
