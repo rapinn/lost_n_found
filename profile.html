@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>โปรไฟล์ส่วนตัว - TU Secure Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/manage-items.css">
+    <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+
+    <div id="sidebar-container"></div>
+
+    <main class="main-content">
+        <div id="header-container"></div>
+
+        <div class="content-wrapper profile-wrapper">
+            <div class="page-header">
+                <h2>การตั้งค่าบัญชีผู้ใช้</h2>
+                <p>จัดการข้อมูลส่วนตัวและความปลอดภัยของบัญชีคุณ</p>
+            </div>
+
+            <div class="profile-layout">
+                <div class="modern-card user-summary-card">
+                    <div class="card-cover"></div>
+                    <div class="avatar-section">
+                        <div class="avatar-wrapper">
+                            <img src="https://ui-avatars.com/api/?name=Admin+TU&background=bc3030&color=fff&size=150" alt="Profile" id="profileImage">
+                            <label for="avatarUpload" class="edit-avatar-btn" title="เปลี่ยนรูปโปรไฟล์">
+                                <i class="fa-solid fa-camera"></i>
+                            </label>
+                            <input type="file" id="avatarUpload" accept="image/*" style="display: none;" onchange="previewAvatar(event)">
+                        </div>
+                        <h3 class="user-display-name" id="displayName">สมชาย ใจดี</h3>
+                        <span class="user-role badge-admin">Administrator</span>
+                    </div>
+                    
+                    <div class="user-stats">
+                        <div class="stat-box">
+                            <h4>142</h4>
+                            <p>รายการที่จัดการ</p>
+                        </div>
+                        <div class="stat-box">
+                            <h4>98%</h4>
+                            <p>อัตราความสำเร็จ</p>
+                        </div>
+                    </div>
+
+                    <div class="user-contact-info">
+                        <div class="info-row"><i class="fa-solid fa-envelope"></i> <span id="displayEmail">somchai.admin@tu.ac.th</span></div>
+                        <div class="info-row"><i class="fa-solid fa-phone"></i> <span id="displayPhone">089-123-4567</span></div>
+                        <div class="info-row"><i class="fa-solid fa-building-shield"></i> <span>เข้าสู่ระบบล่าสุด: วันนี้ 08:30 น.</span></div>
+                    </div>
+                </div>
+
+                <div class="modern-card settings-card">
+                    <div class="settings-tabs">
+                        <button class="tab-btn active" onclick="switchTab('personal')"><i class="fa-regular fa-id-card"></i> ข้อมูลส่วนตัว</button>
+                        <button class="tab-btn" onclick="switchTab('security')"><i class="fa-solid fa-shield-halved"></i> ความปลอดภัย</button>
+                    </div>
+
+                    <div id="tab-personal" class="tab-content active">
+                        <h3 class="form-section-title">ข้อมูลพื้นฐาน</h3>
+                        <form id="profileForm" onsubmit="saveProfile(event)">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>ชื่อจริง</label>
+                                    <input type="text" class="modern-input" id="inputFirstName" value="สมชาย" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>นามสกุล</label>
+                                    <input type="text" class="modern-input" id="inputLastName" value="ใจดี" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>รหัสพนักงาน / ID</label>
+                                    <input type="text" class="modern-input bg-gray" value="EMP-2026-001" readonly title="ติดต่อฝ่ายบุคคลเพื่อแก้ไขรหัสพนักงาน">
+                                </div>
+                                <div class="form-group">
+                                    <label>แผนก / สังกัด</label>
+                                    <input type="text" class="modern-input bg-gray" value="ศูนย์รักษาความปลอดภัย ศูนย์รังสิต" readonly>
+                                </div>
+                            </div>
+
+                            <h3 class="form-section-title" style="margin-top: 25px;">ช่องทางการติดต่อ</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>อีเมล (Email)</label>
+                                    <input type="email" class="modern-input" id="inputEmail" value="somchai.admin@tu.ac.th" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>เบอร์โทรศัพท์มือถือ</label>
+                                    <input type="tel" class="modern-input" id="inputPhone" value="089-123-4567" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" title="รูปแบบ: 089-123-4567">
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn-save" id="saveProfileBtn">บันทึกการเปลี่ยนแปลง</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div id="tab-security" class="tab-content" style="display: none;">
+                        <h3 class="form-section-title">เปลี่ยนรหัสผ่าน</h3>
+                        <p style="font-size: 13px; color: #64748b; margin-top: -5px; margin-bottom: 20px;">เพื่อความปลอดภัย โปรดตั้งรหัสผ่านที่มีความยาวอย่างน้อย 8 ตัวอักษร</p>
+                        
+                        <form id="passwordForm" onsubmit="savePassword(event)">
+                            <div class="form-group" style="max-width: 400px; margin-bottom: 15px;">
+                                <label>รหัสผ่านปัจจุบัน</label>
+                                <div class="password-wrapper">
+                                    <input type="password" class="modern-input" id="currentPassword" placeholder="••••••••" required>
+                                    <button type="button" class="toggle-password" onclick="togglePasswordVisibility('currentPassword', this)"><i class="fa-regular fa-eye-slash"></i></button>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group" style="max-width: 400px; margin-bottom: 15px;">
+                                <label>รหัสผ่านใหม่</label>
+                                <div class="password-wrapper">
+                                    <input type="password" class="modern-input" id="newPassword" placeholder="อย่างน้อย 8 ตัวอักษร" minlength="8" required>
+                                    <button type="button" class="toggle-password" onclick="togglePasswordVisibility('newPassword', this)"><i class="fa-regular fa-eye-slash"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="max-width: 400px; margin-bottom: 25px;">
+                                <label>ยืนยันรหัสผ่านใหม่</label>
+                                <div class="password-wrapper">
+                                    <input type="password" class="modern-input" id="confirmPassword" placeholder="พิมพ์รหัสผ่านใหม่อีกครั้ง" required>
+                                    <button type="button" class="toggle-password" onclick="togglePasswordVisibility('confirmPassword', this)"><i class="fa-regular fa-eye-slash"></i></button>
+                                </div>
+                                <span id="passwordErrorMsg" style="color: #ef4444; font-size: 12px; margin-top: 5px; display: none;">รหัสผ่านใหม่และยืนยันรหัสผ่านไม่ตรงกัน!</span>
+                            </div>
+
+                            <div class="form-actions" style="justify-content: flex-start; margin-bottom: 40px;">
+                                <button type="submit" class="btn-save" id="savePasswordBtn">อัปเดตรหัสผ่าน</button>
+                            </div>
+                        </form>
+
+                        <h3 class="form-section-title">ประวัติการเข้าสู่ระบบ (Login History)</h3>
+                        <div class="login-history-list">
+                            <div class="history-item">
+                                <div class="history-icon bg-green"><i class="fa-solid fa-laptop"></i></div>
+                                <div class="history-details">
+                                    <div class="history-device">Windows PC - Chrome (ปัจจุบัน)</div>
+                                    <div class="history-meta">IP: 192.168.1.45 • กรุงเทพมหานคร, ไทย</div>
+                                </div>
+                                <div class="history-time">วันนี้, 08:30 น.</div>
+                            </div>
+                            <div class="history-item">
+                                <div class="history-icon bg-gray"><i class="fa-solid fa-mobile-screen"></i></div>
+                                <div class="history-details">
+                                    <div class="history-device">iPhone 13 - Safari</div>
+                                    <div class="history-meta">IP: 171.101.x.x • ปทุมธานี, ไทย</div>
+                                </div>
+                                <div class="history-time">เมื่อวาน, 18:45 น.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/components.js"></script>
+    <script src="js/profile.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadLayout('nav-profile', 'โปรไฟล์ของฉัน'); 
+        });
+    </script>
+</body>
+</html>

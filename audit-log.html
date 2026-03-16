@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ประวัติการทำรายการ - TU Secure Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/manage-items.css">
+    <link rel="stylesheet" href="css/audit-log.css"> 
+</head>
+<body>
+
+    <div id="sidebar-container"></div>
+
+    <main class="main-content">
+        <div id="header-container"></div>
+
+        <div class="content-wrapper">
+
+            <div class="glass-card filter-container">
+                <div class="filter-grid">
+                    <div class="filter-input-group">
+                        <i class="fa-solid fa-user-shield"></i>
+                        <select id="userFilter" class="form-control">
+                            <option value="">เจ้าหน้าที่ทั้งหมด</option>
+                            <option value="Admin สมชาย">Admin สมชาย</option>
+                            <option value="รปภ. สมศักดิ์">รปภ. สมศักดิ์</option>
+                            <option value="ระบบอัตโนมัติ">ระบบอัตโนมัติ (System)</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-input-group">
+                        <i class="fa-solid fa-bolt"></i>
+                        <select id="actionFilter" class="form-control">
+                            <option value="">ทุกการกระทำ (Actions)</option>
+                            <option value="CREATE">เพิ่มข้อมูลใหม่ (Create)</option>
+                            <option value="UPDATE">แก้ไขข้อมูล (Update)</option>
+                            <option value="STATUS_CHANGE">เปลี่ยนสถานะ (Status)</option>
+                            <option value="DELETE">ลบข้อมูล (Delete)</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-input-group">
+                        <i class="fa-solid fa-calendar-day"></i>
+                        <input type="date" id="dateFilter" class="form-control" title="เลือกวันที่">
+                    </div>
+
+                    <button class="btn-icon" onclick="resetFilters()" title="ล้างค่า">
+                        <i class="fa-solid fa-rotate-right"></i>
+                    </button>
+                    <button class="btn-export" onclick="exportAuditLogCSV()">
+                        <i class="fa-solid fa-cloud-arrow-down"></i> ดาวน์โหลดรายงาน
+                    </button>
+                </div>
+            </div>
+
+            <div class="glass-card table-container">
+                <div class="table-responsive">
+                    <table class="data-table audit-table">
+                        <thead>
+                            <tr>
+                                <th width="15%">วันเวลา (Date/Time)</th>
+                                <th width="20%">เจ้าหน้าที่ (User)</th>
+                                <th width="15%">การกระทำ (Action)</th>
+                                <th width="15%">รหัสอ้างอิง (Case ID)</th>
+                                <th width="35%">รายละเอียด (Details)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="auditTableBody">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-footer">
+                    <div id="pagination-container" class="pagination"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/components.js"></script>
+    <script src="js/audit-log.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadLayout('nav-audit', 'ประวัติการทำรายการ');
+        });
+    </script>
+</body>
+</html>

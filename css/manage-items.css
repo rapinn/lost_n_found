@@ -1,0 +1,152 @@
+/* นำโค้ดนี้ไปแทนที่ไฟล์ css/manage-items.css เดิมทั้งหมด */
+
+/* ================= VARIABLES ================= */
+:root {
+    --primary: #bc3030;
+    --primary-hover: #9e2828;
+    --secondary: #ffd13f;
+    --bg-body: #f4f7f9;
+    --bg-surface: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border-light: #e2e8f0;
+    --sidebar-width: 260px;
+    
+    --success: #10b981;
+    --success-bg: #d1fae5;
+    --danger: #ef4444;
+    --danger-bg: #fee2e2;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Prompt', sans-serif; }
+body { background-color: var(--bg-body); color: var(--text-main); font-size: 13px; overflow-x: hidden; }
+
+/* ================= LAYOUT ================= */
+.main-content { margin-left: var(--sidebar-width); min-height: 100vh; transition: margin-left 0.3s ease; display: flex; flex-direction: column; }
+.content-wrapper { padding: 15px 20px; flex-grow: 1; }
+
+.glass-card {
+    background: var(--bg-surface); border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid var(--border-light);
+    margin-bottom: 15px;
+}
+
+/* ================= FILTERS ================= */
+.filter-container { padding: 15px; }
+.filter-grid { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.filter-input-group { position: relative; flex: 1; min-width: 180px; }
+.filter-input-group i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
+.form-control { width: 100%; padding: 10px 12px 10px 36px; border: 1px solid var(--border-light); border-radius: 6px; font-size: 13px; background-color: #f8fafc; color: var(--text-main); transition: all 0.2s; outline: none; }
+.form-control:focus { border-color: var(--primary); background-color: #fff; }
+.btn-primary { background: var(--secondary); color: #451a03; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap; }
+.btn-primary:hover { background: #facc15; }
+
+/* ================= DESKTOP TABLE ================= */
+.table-container { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+.table-responsive { overflow-x: auto; width: 100%; }
+.data-table { width: 100%; border-collapse: collapse; min-width: 1050px; }
+.data-table th, .data-table td { padding: 12px 10px; text-align: left; border-bottom: 1px solid var(--border-light); vertical-align: middle; }
+.data-table th { background-color: #f8fafc; color: var(--text-muted); font-weight: 500; white-space: nowrap; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid #e2e8f0; }
+
+/* ✅ ตารางสลับสี (Zebra Striping) เฉพาะจอคอมพิวเตอร์ */
+@media (min-width: 769px) {
+    .data-table tbody tr:nth-child(even) { background-color: #f8fafc; }
+    .data-table tbody tr:nth-child(odd) { background-color: #ffffff; }
+    .data-table tbody tr:hover { background-color: #f1f5f9; }
+}
+
+/* ✅ ตกแต่งตัวเลขลำดับ (Row Number Badge) */
+.row-number {
+    background-color: #e2e8f0; color: #475569; width: 28px; height: 28px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 600; margin: 0 auto; box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* Status & Badges */
+.badge { padding: 4px 8px; border-radius: 12px; font-size: 11px; font-weight: 500; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+.badge-found { background: var(--success-bg); color: #065f46; }
+.badge-lost { background: var(--danger-bg); color: #991b1b; }
+
+.status-grid { display: grid; grid-template-columns: 1fr; gap: 2px; }
+.status-btn { padding: 4px 6px; border: 1px solid var(--border-light); border-radius: 4px; background: #fff; color: var(--text-muted); font-size: 11px; cursor: pointer; text-align: left; transition: 0.2s; }
+.status-btn.active { background: var(--success); color: white; border-color: var(--success); font-weight: 600; cursor: default; }
+.status-btn:not(.active):hover { background: #e2e8f0; }
+
+.action-group { display: flex; gap: 4px; }
+.action-btn { flex: 1; padding: 6px; border: none; border-radius: 4px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; color: white; transition: 0.2s; }
+.btn-edit { background: #3b82f6; } .btn-edit:hover { background: #2563eb; }
+.btn-delete { background: var(--danger); } .btn-delete:hover { background: #dc2626; }
+
+/* Text Utilities */
+.text-bold { font-weight: 600; color: var(--text-main); font-size: 13px;}
+.text-small { font-size: 11px; color: var(--text-muted); margin-top: 2px; line-height: 1.4; }
+.icon-text { display: flex; align-items: center; gap: 6px; margin-bottom: 2px; font-size: 12px; }
+
+/* ================= TABLE FOOTER (Pagination จัดกึ่งกลาง) ================= */
+.table-footer {
+    display: flex; justify-content: center; align-items: center; 
+    padding: 20px; background: #fff; border-top: 1px solid var(--border-light);
+    border-radius: 0 0 12px 12px;
+}
+
+/* ปุ่ม Refresh และ Export (ใช้ร่วมกันทุกหน้า) */
+.btn-icon {
+    background: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0;
+    width: 38px; height: 38px; border-radius: 8px;
+    cursor: pointer; transition: 0.2s;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+}
+.btn-icon:hover { background: #e2e8f0; color: #0f172a; transform: scale(1.05); }
+
+.btn-export {
+    background: #10b981; color: white; border: none;
+    padding: 10px 20px; border-radius: 8px;
+    font-weight: 600; font-size: 13px;
+    cursor: pointer; display: flex; align-items: center; gap: 8px;
+    box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2); transition: 0.3s;
+    white-space: nowrap;
+}
+.btn-export:hover { background: #059669; transform: translateY(-2px); box-shadow: 0 6px 8px -1px rgba(16, 185, 129, 0.3); }
+
+/* Pagination UI */
+.pagination { display: flex; align-items: center; gap: 6px; }
+.page-btn { 
+    border: 1px solid #e2e8f0; background: #fff; color: #64748b; 
+    min-width: 36px; height: 36px; border-radius: 8px; cursor: pointer; 
+    transition: all 0.2s ease; font-size: 14px; font-weight: 500; 
+    display: flex; align-items: center; justify-content: center; padding: 0 12px; 
+}
+.page-btn:hover:not([disabled]) { background: #f8fafc; color: var(--text-main); border-color: #cbd5e1; }
+.page-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); pointer-events: none; box-shadow: 0 2px 6px rgba(188, 48, 48, 0.25); }
+.page-btn[disabled] { opacity: 0.5; cursor: not-allowed; background: #f8fafc; color: #cbd5e1; }
+.page-dots { color: var(--text-muted); font-size: 14px; font-weight: 600; padding: 0 4px; display: flex; align-items: center; height: 36px; }
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 1024px) {
+    .main-content { margin-left: 0; }
+    .sidebar { transform: translateX(-100%); transition: transform 0.3s ease; }
+    .sidebar.active { transform: translateX(0); }
+    .sidebar-overlay.active { display: block; }
+}
+
+@media (max-width: 768px) {
+    .filter-grid { flex-direction: column; align-items: stretch; }
+    .btn-primary { justify-content: center; }
+    
+    .data-table thead { display: none; }
+    .data-table, .data-table tbody, .data-table tr, .data-table td { display: block; width: 100%; }
+    .data-table tr { background: #fff; border: 1px solid var(--border-light); border-radius: 10px; margin-bottom: 12px; padding: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
+    .data-table td { display: flex; flex-direction: column; padding: 8px 0; border-bottom: 1px dashed var(--border-light); text-align: left; }
+    .data-table td:last-child { border-bottom: none; padding-bottom: 0; }
+    .data-table td::before { content: attr(data-label); font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; }
+
+    /* แก้ไขการแสดงผลตัวเลขลำดับในมือถือ */
+    .row-number { margin: 0; width: 24px; height: 24px; font-size: 11px; background: #bc3030; color: #fff; }
+
+    .status-grid { grid-template-columns: repeat(2, 1fr); }
+    .action-group { flex-direction: row; gap: 8px; }
+    .action-btn { padding: 10px; font-size: 14px; }
+    
+    .table-footer { flex-direction: column; justify-content: center; }
+}

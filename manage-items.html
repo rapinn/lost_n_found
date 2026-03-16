@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>จัดการรายการสิ่งของ - TU Secure Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/manage-items.css">
+</head>
+<body>
+
+    <div id="sidebar-container"></div>
+
+    <main class="main-content">
+        <div id="header-container"></div>
+
+        <div class="content-wrapper">
+            <div class="glass-card filter-container">
+                <div class="filter-grid">
+                    <div class="filter-input-group">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <select id="categoryFilter" class="form-control">
+                            <option value="">ทุกหมวดหมู่</option>
+                            <option value="บัตร">บัตร/เอกสาร</option>
+                            <option value="โทรศัพท์">โทรศัพท์</option>
+                            <option value="อุปกรณ์อิเล็กทรอนิกส์">อุปกรณ์อิเล็กทรอนิกส์</option>
+                            <option value="เครื่องเขียน">เครื่องเขียน</option>
+                            <option value="อื่นๆ">อื่นๆ</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-input-group">
+                        <i class="fa-solid fa-filter"></i>
+                        <select id="statusFilter" class="form-control">
+                            <option value="">ทุกสถานะ</option>
+                            <option value="แจ้งแล้ว">แจ้งแล้ว (Lost)</option>
+                            <option value="รอรับคืน">รอรับคืน (Waiting)</option>
+                            <option value="คืนเจ้าของแล้ว">คืนเจ้าของแล้ว (Success)</option>
+                            <option value="หมดอายุ">หมดอายุ (Expired)</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-input-group">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <select id="locationFilter" class="form-control">
+                            <option value="">ทุกสถานที่</option>
+                            <option value="ศูนย์เรียนรู้อเนกประสงค์">ศูนย์เรียนรู้อเนกประสงค์ (SC)</option>
+                            <option value="โรงอาหารกลาง">โรงอาหารกลาง (Green Canteen)</option>
+                            <option value="หอสมุดป๋วย">หอสมุดป๋วย อึ๊งภากรณ์</option>
+                            <option value="อาคารเรียนรวม">อาคารเรียนรวม (LC1 - LC5)</option>
+                            <option value="สนามกีฬากลาง">สนามกีฬากลาง (Main Stadium)</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-input-group">
+                        <i class="fa-solid fa-calendar-day"></i>
+                        <input type="date" id="expiryFilter" class="form-control" title="กรองตามวันที่" />
+                    </div>
+
+                    <button class="btn-icon" onclick="resetFilters()" title="ล้างค่า">
+                        <i class="fa-solid fa-rotate-right"></i>
+                    </button>
+                    <button class="btn-export" onclick="exportCurrentPageCSV()">
+                        <i class="fa-solid fa-cloud-arrow-down"></i> ดาวน์โหลดรายงาน
+                    </button>
+                </div>
+            </div>
+
+            <div class="glass-card table-container">
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th width="5%" style="text-align: center;">ลำดับ</th>
+                                <th width="9%">ประเภท</th>
+                                <th width="10%">หมวดหมู่</th>
+                                <th width="6%">รูปภาพ</th>
+                                <th width="14%">รายละเอียดสิ่งของ</th>
+                                <th width="13%">วัน/เวลา/สถานที่</th>
+                                <th width="13%">ข้อมูลผู้แจ้ง</th>
+                                <th width="10%">Case ID</th>
+                                <th width="12%">สถานะ</th>
+                                <th width="8%">จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="itemsTableBody">
+                            <tr>
+                                <td colspan="10" class="loading-state">
+                                    <i class="fa-solid fa-spinner fa-spin"></i> กำลังโหลดข้อมูล...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="table-footer">
+                    <div id="pagination-container" class="pagination"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/components.js"></script>
+    <script src="js/manage-items.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadLayout('nav-manage-items', 'จัดการรายการสิ่งของ');
+        });
+    </script>
+</body>
+</html>

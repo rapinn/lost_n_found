@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ภาพรวมระบบ - TU Secure Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    
+    <link rel="stylesheet" href="css/manage-items.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+    <div id="sidebar-container"></div>
+
+    <main class="main-content">
+        <div id="header-container"></div>
+
+        <div class="content-wrapper dashboard-wrapper">
+            
+            <div class="control-bar">
+                <div class="control-left">
+                    <h2 class="section-title">สถิติภาพรวม</h2>
+                    <p class="section-subtitle">ข้อมูลอัปเดตแบบเรียลไทม์จากระบบ</p>
+                </div>
+                
+                <div class="control-right">
+                    <div class="date-picker-wrapper">
+                        <i class="fa-regular fa-calendar text-muted"></i>
+                        <input type="date" id="startDate" class="modern-input" title="เริ่ม">
+                        <span class="divider">-</span>
+                        <input type="date" id="endDate" class="modern-input" title="สิ้นสุด">
+                        <button class="btn-icon btn-light" onclick="resetFilter()" title="ล้างค่า"><i class="fa-solid fa-rotate-right"></i></button>
+                    </div>
+                    <button class="btn-export" onclick="exportDashboard()" id="exportBtn">
+                        <i class="fa-solid fa-download"></i> ดาวน์โหลดรายงาน
+                    </button>
+                </div>
+            </div>
+
+            <div class="overview-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon bg-gray"><i class="fa-solid fa-layer-group"></i></div>
+                        <span class="stat-label">รายการทั้งหมด</span>
+                    </div>
+                    <div class="stat-body">
+                        <h3 id="statTotal">0</h3>
+                        <span class="stat-unit">รายการ</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon bg-red"><i class="fa-solid fa-bullhorn"></i></div>
+                        <span class="stat-label">แจ้งของหาย (Lost)</span>
+                    </div>
+                    <div class="stat-body">
+                        <h3 id="statLost" class="text-red">0</h3>
+                        <span class="stat-unit">รายการ</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon bg-blue"><i class="fa-solid fa-box-open"></i></div>
+                        <span class="stat-label">เก็บของได้ (Found)</span>
+                    </div>
+                    <div class="stat-body">
+                        <h3 id="statFound" class="text-blue">0</h3>
+                        <span class="stat-unit">รายการ</span>
+                    </div>
+                </div>
+
+                <div class="stat-card highlight-card">
+                    <div class="stat-header">
+                        <div class="stat-icon bg-green"><i class="fa-solid fa-handshake-angle"></i></div>
+                        <span class="stat-label text-green">ส่งคืนสำเร็จแล้ว</span>
+                    </div>
+                    <div class="stat-body">
+                        <h3 id="statReturned" class="text-green">0</h3>
+                        <span class="stat-unit text-green">รายการ</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-layout">
+                <div class="modern-card chart-container">
+                    <div class="card-header">
+                        <h3>สัดส่วนสถานะสิ่งของ</h3>
+                        <button class="more-btn"><i class="fa-solid fa-ellipsis"></i></button>
+                    </div>
+                    <div class="canvas-wrapper">
+                        <canvas id="statusChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="modern-card chart-container">
+                    <div class="card-header">
+                        <h3>หมวดหมู่ที่พบเจอมากที่สุด</h3>
+                    </div>
+                    <div class="canvas-wrapper">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="modern-card chart-container full-width">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-location-dot" style="color:#bc3030; margin-right:8px;"></i> 5 อันดับสถานที่เกิดเหตุบ่อยที่สุด</h3>
+                    </div>
+                    <div class="canvas-wrapper" style="height: 300px;">
+                        <canvas id="locationChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="modern-card full-width" style="padding: 0; overflow: hidden;">
+                    <div class="card-header" style="padding: 20px 24px; margin-bottom: 0; border-bottom: 1px solid #e2e8f0; background: #f8fafc;">
+                        <h3 style="display: flex; align-items: center; gap: 8px;">
+                            <i class="fa-solid fa-clock-rotate-left" style="color:#3b82f6;"></i> รายการอัปเดตล่าสุด
+                        </h3>
+                        <a href="manage-items.html" style="font-size: 13px; font-weight: 500; color: #bc3030; text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                            ดูทั้งหมด <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table dashboard-table">
+                            <thead>
+                                <tr>
+                                    <th width="12%">Case ID</th>
+                                    <th width="12%">ประเภท</th>
+                                    <th width="15%">หมวดหมู่</th>
+                                    <th width="25%">รายละเอียดสิ่งของ</th>
+                                    <th width="20%">สถานที่เกิดเหตุ</th>
+                                    <th width="16%">สถานะ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentItemsBody">
+                                <tr>
+                                    <td colspan="6" style="text-align: center; padding: 30px; color: #94a3b8;">
+                                        <i class="fa-solid fa-spinner fa-spin"></i> กำลังโหลดข้อมูล...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="js/components.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadLayout('nav-dashboard', 'ภาพรวมระบบ');
+        });
+    </script>
+</body>
+</html>
