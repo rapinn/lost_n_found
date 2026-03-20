@@ -256,6 +256,16 @@ input[type="time"]::-webkit-date-and-time-value {
     font-weight: 600;
     min-width: 100px;
   }
+  #adminTableContainer tbody td[colspan="12"] {
+    display: block;
+    text-align: center !important;
+    width: 100%;
+    border-bottom: none;
+  }
+
+  #adminTableContainer tbody td[colspan="12"]::before {
+    display: none;
+  }
 }
 /* Contact Section Styles */
 .contact-section {
@@ -303,17 +313,28 @@ input[type="time"]::-webkit-date-and-time-value {
   max-height: 220px;
   overflow: auto;
   padding-right: 8px;
+  padding-left: 0;
+  align-items: stretch;
 }
 
 .contact-item-label {
   display: flex;
   align-items: center;
-  gap: 8px;
   font-size: 0.95rem;
+  width: 100%;
 }
 
 .contact-item-label span {
   flex: 1;
+  text-align: center;
+  padding-right: 20px;
+}
+
+.contact-item-label input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+  transform: scale(1.05);
+  flex-shrink: 0;
 }
 
 .contact-submit-btn {
@@ -321,10 +342,10 @@ input[type="time"]::-webkit-date-and-time-value {
   padding: 12px;
   font-size: 16px;
   font-weight: 600;
-  background: #10b981;
+  background: #ffd13f;
   border: none;
   border-radius: 8px;
-  color: white;
+  color: black;
   cursor: pointer;
 }
 

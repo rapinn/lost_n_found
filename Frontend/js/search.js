@@ -151,17 +151,24 @@ function renderAdminTable(items) {
 function renderContactItems(items) {
   if (!items || items.length === 0) return "";
 
+  const foundItems = items.filter((it) => it.item_type === "FOUND");
+  if (!foundItems || foundItems.length === 0) {
+    return `
+      <p class="contact-items-title">ไม่มีรายการพบของที่สามารถติดต่อรับได้</p>
+    `;
+  }
+
   return `
     <p class="contact-items-title">เลือกสิ่งของที่ต้องการรับคืน (ติ๊กเลือก)</p>
     <div class="contact-items-list">
-      ${items
-        .map((item, index) => {
+      ${foundItems
+        .map((item, idx) => {
           const label =
-            `${index + 1}. ${item.category || "-"} / ${item.brand || ""} ${item.model || ""}`.trim();
-          const id = `contactItem_${index}`;
+            `${idx + 1}. ${item.category || "-"} / ${item.brand || ""} ${item.model || ""}`.trim();
+          const id = `contactItem_${idx}`;
           return `
             <label class="contact-item-label">
-              <input type="checkbox" id="${id}" name="contactItem" value="${item.id || index}" />
+              <input type="checkbox" id="${id}" name="contactItem" value="${item.id || idx}" />
               <span>${label}</span>
             </label>
           `;

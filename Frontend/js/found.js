@@ -131,7 +131,19 @@ async function sendToLambda(data) {
     reporter_name: data.reporterName,
     reporter_contact: data.reporterPhone,
     reporter_student_id: data.reporterStudentId,
+    // NOTE: reporter_faculty, reporter_major, reporter_email are included
+    // in the client payload for future compatibility, but the AWS Lambda /
+    // backend currently may NOT persist these fields.  If you want these
+    // values stored in the DB, update the Lambda handler and database schema
+    // to accept and save: reporter_faculty, reporter_major, reporter_email.
+    // (Right now these fields are sent from the client but may be ignored
+    // by the backend until it's updated.)
   };
+
+  if (data.reporterFaculty)
+    reportPayload.reporter_faculty = data.reporterFaculty;
+  if (data.reporterMajor) reportPayload.reporter_major = data.reporterMajor;
+  if (data.reporterEmail) reportPayload.reporter_email = data.reporterEmail;
 
   if (imageUrl) {
     reportPayload.image_url = imageUrl;
@@ -185,6 +197,15 @@ async function handleSubmit() {
   let reporterStudentId = document
     .getElementById("reporterStudentId")
     .value.trim();
+  const reporterFaculty = document.getElementById("reporterFaculty")
+    ? document.getElementById("reporterFaculty").value.trim()
+    : "";
+  const reporterMajor = document.getElementById("reporterMajor")
+    ? document.getElementById("reporterMajor").value.trim()
+    : "";
+  const reporterEmail = document.getElementById("reporterEmail")
+    ? document.getElementById("reporterEmail").value.trim()
+    : "";
 
   // หากไม่ใช่นักศึกษา ให้ล้างค่า studentId เพื่อไม่ส่งข้อมูลที่ไม่เกี่ยวข้อง
   if (userStatus !== "student") {
@@ -252,6 +273,9 @@ async function handleSubmit() {
     reporterName,
     reporterPhone,
     reporterStudentId,
+    reporterFaculty,
+    reporterMajor,
+    reporterEmail,
     itemImage,
   };
 
@@ -282,6 +306,8 @@ async function handleSubmit() {
       document.getElementById("reporterStudentId").value = "";
       document.getElementById("reporterFaculty").value = "";
       document.getElementById("reporterMajor").value = "";
+      if (document.getElementById("reporterEmail"))
+        document.getElementById("reporterEmail").value = "";
       toggleStudentFields();
       document.getElementById("itemImage").value = "";
 

@@ -87,6 +87,11 @@ async function initLiffSafe() {
 
 async function sendToLambda(data) {
   // map ข้อมูลจากฟอร์ม ให้ตรงกับที่ Lambda
+  // NOTE: reporter_faculty, reporter_major, reporter_email are included
+  // in the client payload for future compatibility, but the AWS Lambda /
+  // backend currently may NOT persist these fields. Update the Lambda
+  // handler and DB schema to accept and store these keys if you want
+  // them saved server-side. Currently they may be ignored by the backend.
   const lambdaPayload = {
     itemDescription: data.itemName, // (ฟอร์มใช้ itemName)
     brandOrId: data.brand,
@@ -99,6 +104,11 @@ async function sendToLambda(data) {
     reporterContact: data.reporterPhone,
     reporterStudentId: data.reporterStudentId,
   };
+
+  if (data.reporterFaculty)
+    lambdaPayload.reporter_faculty = data.reporterFaculty;
+  if (data.reporterMajor) lambdaPayload.reporter_major = data.reporterMajor;
+  if (data.reporterEmail) lambdaPayload.reporter_email = data.reporterEmail;
 
   const response = await fetch(LAMBDA_LOST_URL, {
     method: "POST",
@@ -139,6 +149,16 @@ document
     if (userStatus !== "student") {
       reporterStudentId = "";
     } // Validate (เหมือนเดิม)
+
+    const reporterFaculty = document.getElementById("reporterFaculty")
+      ? document.getElementById("reporterFaculty").value.trim()
+      : "";
+    const reporterMajor = document.getElementById("reporterMajor")
+      ? document.getElementById("reporterMajor").value.trim()
+      : "";
+    const reporterEmail = document.getElementById("reporterEmail")
+      ? document.getElementById("reporterEmail").value.trim()
+      : "";
 
     if (
       !itemName ||
@@ -193,6 +213,9 @@ document
       reporterName,
       reporterPhone,
       reporterStudentId,
+      reporterFaculty,
+      reporterMajor,
+      reporterEmail,
       itemImage,
     }; // ⭐️ 5. ส่งข้อมูลไป AWS ที่เดียว
 
@@ -216,6 +239,8 @@ document
       document.getElementById("reporterStudentId").value = "";
       document.getElementById("reporterFaculty").value = "";
       document.getElementById("reporterMajor").value = "";
+      if (document.getElementById("reporterEmail"))
+        document.getElementById("reporterEmail").value = "";
       toggleStudentFields();
       document.getElementById("itemImage").value = "";
     } catch (error) {
